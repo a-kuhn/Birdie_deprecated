@@ -1,0 +1,1 @@
+export default ["bird", "bird2"];
