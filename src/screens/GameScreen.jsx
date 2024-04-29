@@ -6,7 +6,12 @@ import Button from '@components/Button';
 export default GameScreen = ({birds}) => {
   const [currentBirdIndex, setCurrentBirdIndex] = useState(0);
 
-  const handleButtonClick = () => {
+  const handlePrevBird = () => {
+    setCurrentBirdIndex(
+      prevIndex => (prevIndex + birds.length - 1) % birds.length,
+    );
+  };
+  const handleNextBird = () => {
     setCurrentBirdIndex(prevIndex => (prevIndex + 1) % birds.length);
   };
   const handleEndGame = () => {
@@ -15,7 +20,9 @@ export default GameScreen = ({birds}) => {
 
   return (
     <View style={styles.container}>
-      <FlashCard bird={birds[currentBirdIndex]} onNext={handleButtonClick} />
+      <FlashCard bird={birds[currentBirdIndex]} />
+      <Button title="Prev Bird" onClick={handlePrevBird} />
+      <Button title="Next Bird" onClick={handleNextBird} />
       <Button title="End Game" onClick={handleEndGame} />
     </View>
   );
