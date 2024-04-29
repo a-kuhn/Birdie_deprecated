@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import FlashCard from '@components/FlashCard';
 import Button from '@components/Button';
-import birds from '@assets/data/birds';
+import birds from '@assets/data/BirdsData.json';
+import Bird from '@models/Bird';
 
 const GameView = () => {
   const [currentBirdIndex, setCurrentBirdIndex] = useState(0);

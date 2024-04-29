@@ -18,13 +18,13 @@ const FlashCard = ({bird, onNext}) => {
       {isFlipped ? (
         <View style={styles.cardBack}>
           <Text style={styles.cardTitle}>{bird.famComName}</Text>
-          <Image source={bird.imageUrl} style={styles.smallImage} />
+          <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
           <Text style={styles.commonName}>{bird.comName}</Text>
           <Text style={styles.latinName}>{bird.sciName}</Text>
           <Button title="Next Bird" onClick={handleNextBird} />
         </View>
       ) : (
-        <Image source={bird.imageUrl} style={styles.cardFront} />
+        <Image source={{uri: bird.imageUrl}} style={styles.cardFront} />
       )}
     </TouchableOpacity>
   );
