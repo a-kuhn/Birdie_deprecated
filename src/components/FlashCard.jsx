@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import Button from '@components/Button';
 
-const FlashCard = ({bird, onNext}) => {
+export default FlashCard = ({bird}) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [bird]);
 
   const handlePress = () => {
     setIsFlipped(!isFlipped);
-  };
-  const handleNextBird = () => {
-    onNext();
-    setIsFlipped(false);
   };
 
   return (
@@ -18,13 +17,12 @@ const FlashCard = ({bird, onNext}) => {
       {isFlipped ? (
         <View style={styles.cardBack}>
           <Text style={styles.cardTitle}>{bird.famComName}</Text>
-          <Image source={bird.imageUrl} style={styles.smallImage} />
+          <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
           <Text style={styles.commonName}>{bird.comName}</Text>
           <Text style={styles.latinName}>{bird.sciName}</Text>
-          <Button title="Next Bird" onClick={handleNextBird} />
         </View>
       ) : (
-        <Image source={bird.imageUrl} style={styles.cardFront} />
+        <Image source={{uri: bird.imageUrl}} style={styles.cardFront} />
       )}
     </TouchableOpacity>
   );
@@ -70,5 +68,3 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 });
-
-export default FlashCard;

@@ -7,15 +7,17 @@ import {
 } from 'react-native';
 import colors from '@constants/colors';
 import GameScreen from '@screens/GameScreen';
+import { getAllBirds, getBirdsByFamily } from '@services/BirdsService';
+
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const allBirds = getBirdsByFamily('accipi1');
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeArea}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic">
-        <GameScreen />
+        <GameScreen birds={allBirds} />
       </ScrollView>
     </SafeAreaView>
   );
