@@ -3,7 +3,7 @@ import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import FlashCard from '@components/FlashCard';
 import Button from '@components/Button';
 
-const GameScreen = ({birds}) => {
+export default GameScreen = ({birds}) => {
   const [currentBirdIndex, setCurrentBirdIndex] = useState(0);
 
   const handleButtonClick = () => {
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameScreen;
+// export default GameScreen;

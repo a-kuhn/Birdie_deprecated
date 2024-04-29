@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import Button from '@components/Button';
 
-const FlashCard = ({bird, onNext}) => {
+export default FlashCard = ({bird, onNext}) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handlePress = () => {
@@ -70,5 +70,3 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 });
-
-export default FlashCard;
