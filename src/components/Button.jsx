@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import colors from '@constants/colors';
 
-const Button = ({onClick, title}) => {
+export default Button = ({onClick, title}) => {
   return (
     <TouchableOpacity onPress={onClick} style={styles.button}>
       <Text style={styles.text}>{title}</Text>
@@ -24,5 +24,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default Button;
