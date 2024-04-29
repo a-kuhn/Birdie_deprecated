@@ -14,6 +14,9 @@ export default GameScreen = ({birds}) => {
   const handleNextBird = () => {
     setCurrentBirdIndex(prevIndex => (prevIndex + 1) % birds.length);
   };
+  const handleRestartGame = () => {
+    setCurrentBirdIndex(0);
+  };
   const handleEndGame = () => {
     console.log('Game Ended');
   };
@@ -21,9 +24,14 @@ export default GameScreen = ({birds}) => {
   return (
     <View style={styles.container}>
       <FlashCard bird={birds[currentBirdIndex]} />
-      <Button title="Prev Bird" onClick={handlePrevBird} />
-      <Button title="Next Bird" onClick={handleNextBird} />
-      <Button title="End Game" onClick={handleEndGame} />
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Button title="Prev Bird" onClick={handlePrevBird} />
+        <Button title="Next Bird" onClick={handleNextBird} />
+      </View>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Button title="Restart Game" onClick={handleRestartGame} />
+        <Button title="End Game" onClick={handleEndGame} />
+      </View>
     </View>
   );
 };
