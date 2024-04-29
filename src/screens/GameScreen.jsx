@@ -2,10 +2,8 @@ import React, {useState} from 'react';
 import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import FlashCard from '@components/FlashCard';
 import Button from '@components/Button';
-import birds from '@assets/data/BirdsData.json';
-import Bird from '@models/Bird';
 
-const GameView = () => {
+const GameScreen = ({birds}) => {
   const [currentBirdIndex, setCurrentBirdIndex] = useState(0);
 
   const handleButtonClick = () => {
@@ -30,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameView;
+export default GameScreen;

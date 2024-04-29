@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import colors from '@constants/colors';
 import GameScreen from '@screens/GameScreen';
+import birds from '@assets/data/BirdsData.json';
+
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,7 +17,7 @@ function App(): React.JSX.Element {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic">
-        <GameScreen />
+        <GameScreen birds={birds} />
       </ScrollView>
     </SafeAreaView>
   );
