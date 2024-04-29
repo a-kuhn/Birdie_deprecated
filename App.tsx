@@ -11,8 +11,7 @@ import { getAllBirds, getBirdsByFamily } from '@services/BirdsService';
 
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const allBirds = getAllBirds();
+  const allBirds = getBirdsByFamily('accipi1');
 
   return (
     <SafeAreaView style={styles.safeArea}>

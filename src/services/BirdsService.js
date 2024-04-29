@@ -6,5 +6,5 @@ export const getAllBirds = () => {
 };
 
 export const getBirdsByFamily = (famComNameCode) => {
-    return birdsData.filter(famComNameCode);
+    return birdsData.filter(bird => bird.famComNameCode === famComNameCode);
 };
