@@ -20,19 +20,23 @@ export default CreateGameScreen = ({setGameBirds}) => {
   return (
     <View style={styles.container}>
       <Button title="Random Game" onClick={() => getRandomBirds(25)} />
-      <TextInput
-        type="text"
-        placeholder="ex: 'Woodpeckers' or 'Hawks'"
-        value={filtersToApply}
-        autoCapitalize="none"
-        onChange={e => {
-          setFiltersToApply(e.nativeEvent.text);
-        }}
-      />
-      <Button
-        title="Custom Game"
-        onClick={() => getCustomBirds(filtersToApply)}
-      />
+      <View style={{flexDirection: 'column'}}>
+        <TextInput
+          style={styles.inputText}
+          type="text"
+          placeholder="ex: 'Woodpeckers' or 'Hawks'"
+          value={filtersToApply}
+          autoCapitalize="none"
+          textAlign="left"
+          onTextChange={filterText => {
+            setFiltersToApply(filterText);
+          }}
+        />
+        <Button
+          title="Custom Game"
+          onClick={() => getCustomBirds(filtersToApply)}
+        />
+      </View>
     </View>
   );
 };
@@ -40,6 +44,14 @@ export default CreateGameScreen = ({setGameBirds}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  inputText: {
+    textAlign: 'left',
+    backgroundColor: '#fff',
+    padding: 10,
+    margin: 5,
+    borderRadius: 15,
   },
 });
