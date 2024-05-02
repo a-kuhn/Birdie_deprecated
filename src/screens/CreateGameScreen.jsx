@@ -28,8 +28,8 @@ export default CreateGameScreen = ({setGameBirds}) => {
           value={filtersToApply}
           autoCapitalize="none"
           textAlign="left"
-          onTextChange={filterText => {
-            setFiltersToApply(filterText);
+          onChange={e => {
+            setFiltersToApply(e.nativeEvent.text);
           }}
         />
         <Button
