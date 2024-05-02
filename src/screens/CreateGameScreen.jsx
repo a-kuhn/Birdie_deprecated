@@ -15,6 +15,7 @@ export default CreateGameScreen = ({setGameBirds}) => {
     console.log('custom game');
     const birds = createCustomGame(filtersToApply);
     setGameBirds(birds);
+    setFiltersToApply('');
   };
 
   return (
