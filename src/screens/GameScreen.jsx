@@ -18,6 +18,7 @@ export default GameScreen = ({birds, setGameBirds}) => {
     setCurrentBirdIndex(0);
   };
   const handleEndGame = () => {
+    setCurrentBirdIndex(0);
     setGameBirds([]);
   };
 
