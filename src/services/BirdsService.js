@@ -11,3 +11,15 @@ export const getRandomBirds = (count) => {
 export const getBirdsByFamily = (famComNameCode) => {
     return birdsData.filter(bird => bird.famComNameCode === famComNameCode);
 };
+
+export const getUniqueFamilies = () => {
+    return birdsData.reduce((acc, bird) => {
+        if (!acc.some(family => family.famComNameCode === bird.famComNameCode)) {
+            acc.push({
+                famComNameCode: bird.famComNameCode,
+                famComName: bird.famComName,
+            });
+        }
+        return acc;
+    }, []);
+};

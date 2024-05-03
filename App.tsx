@@ -7,6 +7,7 @@ import {
 import colors from '@constants/colors';
 import GameScreen from '@screens/GameScreen';
 import CreateGameScreen from '@screens/CreateGameScreen';
+import DevScreen from '@screens/DevScreen';
 
 
 function App(): React.JSX.Element {

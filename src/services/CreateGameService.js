@@ -5,7 +5,14 @@ export const createRandomGame = (count) => {
     return birds;
 }
 
-export const createCustomGame = (filtersToApply) => {
-    const birds = getBirdsByFamily(filtersToApply)
+export const createGame = (filtersToApply) => {
+    const birds = getBirdsByFamily(filtersToApply.selectedFamily)
     return birds;
 };
+
+// createGame = (fitlersToApply) => {
+// build path for location code
+// get species list for region
+// randomize order & save first (count)
+// get birds by speciesCode
+// }
