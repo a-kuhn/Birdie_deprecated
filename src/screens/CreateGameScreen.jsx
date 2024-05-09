@@ -1,63 +1,55 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import Button from '@components/Button';
 import RadioButton from '@components/RadioButton';
 import Dropdown from '@components/Dropdown';
 import allCountries from '@assets/data/AllCountries.json';
-import axios from 'axios';
 import {getUniqueFamilies} from '@services/BirdsService';
+import {getSubnational1Regions, getSubnational2Regions} from '@api/ebirdAPI';
 import {createGame} from '@services/CreateGameService';
 
 export default CreateGameScreen = ({setGameBirds}) => {
+  const uniqueFamilies = getUniqueFamilies();
   const birdNumberOpts = ['25', '50', 'all'];
   const [birdsNumber, setBirdsNumber] = useState('25');
-  const uniqueFamilies = getUniqueFamilies();
   const [selectedFamily, setSelectedFamily] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
-  const [allSubnational1, setAllSubnational1] = useState([]);
   const [selectedStateProvince, setSelectedStateProvince] = useState('');
-  const [allSubnational2, setAllSubnational2] = useState([]);
   const [selectedCountyRegion, setSelectedCountyRegion] = useState('');
-
-  const EBIRD_API_KEY = process.env.EBIRD_API_KEY;
-  const eBirdApi = axios.create({
-    baseURL: 'https://api.ebird.org/v2',
-    headers: {
-      'X-eBirdApiToken': EBIRD_API_KEY,
-    },
-  });
-  const subNational1Url = `/ref/region/list/subnational1/${selectedCountry}`;
-  const subNational2Url = `/ref/region/list/subnational2/${selectedStateProvince}`;
+  const [allSubnational1, setAllSubnational1] = useState([]);
+  const [allSubnational2, setAllSubnational2] = useState([]);
 
   useEffect(() => {
-    eBirdApi
-      .get(subNational1Url)
-      .then(res => {
-        setAllSubnational1(res.data);
-        // console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
     setSelectedCountyRegion('');
     setAllSubnational2([]);
+    if (selectedCountry) {
+      getSubnational1Regions(selectedCountry)
+        .then(subNational1Regions => {
+          setAllSubnational1(subNational1Regions);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }, [selectedCountry]);
 
   useEffect(() => {
-    eBirdApi
-      .get(subNational2Url)
-      .then(res => {
-        setAllSubnational2(res.data);
-        // console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (selectedStateProvince) {
+      getSubnational2Regions(selectedStateProvince)
+        .then(subNational2Regions => {
+          setAllSubnational2(subNational2Regions);
+          console.log('Subnational 2 regions:', subNational2Regions);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }, [selectedStateProvince]);
 
   const handleCreateGame = () => {
     const filtersToApply = {
       birdsNumber,
+      allSubnational1,
       selectedFamily,
       selectedCountry,
       selectedStateProvince,
