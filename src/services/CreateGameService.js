@@ -1,14 +1,17 @@
-import { getRandomBirds, getBirdsByFamily } from '@services/BirdsService';
+import { getAllBirds, getRandomBirds, getBirdsByFamily } from '@services/BirdsService';
 
-export const createRandomGame = (count) => {
-    const birds = getRandomBirds(count);
-    return birds;
-}
 
 export const createGame = (filtersToApply) => {
-    const birds = getBirdsByFamily(filtersToApply.selectedFamily)
-    return birds;
+    const birdFamily = filtersToApply.birdFamily
+        ? getBirdsByFamily(filtersToApply.selectedFamily)
+        : getAllBirds();
+
+    const randomBirds = getRandomBirds(birdFamily, filtersToApply.birdsNumber);
+
+    return randomBirds;
 };
+
+// filtersToApply = {"birdsNumber": "25", "selectedCountry": "US", "selectedCountyRegion": "", "selectedFamily": "falcon1", "selectedStateProvince": "US-MA"}
 
 // createGame = (fitlersToApply) => {
 // build path for location code

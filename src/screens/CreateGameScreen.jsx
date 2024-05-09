@@ -34,7 +34,7 @@ export default CreateGameScreen = ({setGameBirds}) => {
       .get(subNational1Url)
       .then(res => {
         setAllSubnational1(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -48,7 +48,7 @@ export default CreateGameScreen = ({setGameBirds}) => {
       .get(subNational2Url)
       .then(res => {
         setAllSubnational2(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -64,8 +64,12 @@ export default CreateGameScreen = ({setGameBirds}) => {
       selectedCountyRegion,
     };
     const gameBirds = createGame(filtersToApply);
-    console.log(selectedFamily);
+    console.log(filtersToApply);
     setGameBirds(gameBirds);
+    console.log('Game birds!');
+    gameBirds.forEach(bird => {
+      console.log(bird.comName);
+    });
   };
 
   return (
@@ -95,7 +99,7 @@ export default CreateGameScreen = ({setGameBirds}) => {
       <View style={{flexDirection: 'row', marginBottom: 20, marginTop: 10}}>
         {birdNumberOpts.map((opt, i) => (
           <RadioButton
-            idx={i}
+            key={i}
             radioText={opt}
             selected={opt === birdsNumber}
             onClick={() => {
@@ -191,19 +195,10 @@ export default CreateGameScreen = ({setGameBirds}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    borderColor: 'purple',
+    overflow: 'hidden',
+    borderRadius: 20,
     borderWidth: 2,
-    paddingHorizontal: 10,
-  },
-  inputText: {
-    textAlign: 'left',
     backgroundColor: '#fff',
-    padding: 10,
-    margin: 5,
-    borderRadius: 15,
+    paddingHorizontal: 10,
   },
 });

@@ -4,8 +4,8 @@ export const getAllBirds = () => {
     return birdsData;
 };
 
-export const getRandomBirds = (count) => {
-    return birdsData.sort(() => Math.random() - Math.random()).slice(0, count);
+export const getRandomBirds = (allBirds, count) => {
+    return allBirds.sort(() => Math.random() - Math.random()).slice(0, count);
 }
 
 export const getBirdsByFamily = (famComNameCode) => {
