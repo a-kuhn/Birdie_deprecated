@@ -7,5 +7,6 @@ module.exports = {
     "@navigations": "./src/navigations",
     "@services": "./src/services",
     "@types": "./src/types",
-    "@models": "./src/models"
+    "@models": "./src/models",
+    "@api": "./src/api",
 };
