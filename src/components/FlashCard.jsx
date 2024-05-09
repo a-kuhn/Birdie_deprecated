@@ -17,7 +17,10 @@ export default FlashCard = ({bird}) => {
       {isFlipped ? (
         <View style={styles.cardBack}>
           <Text style={styles.cardTitle}>{bird.famComName}</Text>
-          <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
+          {bird.imageUrl && bird.imageUrl !== '' ? (
+            <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
+          ) : //todo - add a placeholder image; log error if image not found (use onError prop on Image component)
+          null}
           <Text style={styles.commonName}>{bird.comName}</Text>
           <Text style={styles.latinName}>{bird.sciName}</Text>
         </View>
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     width: 350,
     height: 350,
     overflow: 'hidden',
-    borderRadius: 30,
+    borderRadius: 20,
     borderWidth: 2,
   },
   cardFront: {
