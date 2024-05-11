@@ -1,21 +1,20 @@
-import { getAllBirds, getRandomBirds, getBirdsByFamily } from '@services/BirdsService';
+import { getRandomBirds, getSppCodesByFamily } from '@services/BirdsService';
+import { getSpeciesList } from '@api/ebirdAPI';
 
 
-export const createGame = (filtersToApply) => {
-    const birdFamily = filtersToApply.birdFamily
-        ? getBirdsByFamily(filtersToApply.selectedFamily)
-        : getAllBirds();
+export const createGame = async (filtersToApply) => {
+    const { selectedCountyRegion, selectedStateProvince, selectedCountry, selectedFamily, birdsNumber } = filtersToApply;
 
-    const randomBirds = getRandomBirds(birdFamily, filtersToApply.birdsNumber);
+    let regionCode = selectedCountyRegion || selectedStateProvince || selectedCountry || null;
 
+    let sppCodesByRegion = regionCode ? await getSpeciesList(regionCode) : [];
+    let sppCodesByFamily = selectedFamily ? await getSppCodesByFamily(selectedFamily) : [];
+
+    let sppCodes = sppCodesByFamily.filter(sppCode => sppCodesByRegion.includes(sppCode));
+
+    if (sppCodes.length === 0) {
+        throw new Error("No birds matching selected filters");
+    }
+    const randomBirds = getRandomBirds(sppCodes, birdsNumber);
     return randomBirds;
 };
-
-// filtersToApply = {"birdsNumber": "25", "selectedCountry": "US", "selectedCountyRegion": "", "selectedFamily": "falcon1", "selectedStateProvince": "US-MA"}
-
-// createGame = (fitlersToApply) => {
-// build path for location code
-// get species list for region
-// randomize order & save first (count)
-// get birds by speciesCode
-// }

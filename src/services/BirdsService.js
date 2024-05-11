@@ -1,15 +1,21 @@
 import birdsData from '@assets/data/BirdsData.json';
 
-export const getAllBirds = () => {
-    return birdsData;
+export const getAllSppCodes = () => {
+    return birdsData.map(bird => bird.speciesCode);
 };
 
-export const getRandomBirds = (allBirds, count) => {
-    return allBirds.sort(() => Math.random() - Math.random()).slice(0, count);
+export const getRandomBirds = (sppCodes, count) => {
+    const allBirds = getBirdsBySpeciesCodes(sppCodes);
+    const randomBirds = allBirds.sort(() => Math.random() - Math.random()).slice(0, count);
+    return randomBirds;
 }
 
 export const getBirdsByFamily = (famComNameCode) => {
     return birdsData.filter(bird => bird.famComNameCode === famComNameCode);
+};
+
+export const getSppCodesByFamily = (famComNameCode) => {
+    return birdsData.filter(bird => bird.famComNameCode === famComNameCode).map(bird => bird.sppCode);
 };
 
 export const getUniqueFamilies = () => {
@@ -22,4 +28,12 @@ export const getUniqueFamilies = () => {
         }
         return acc;
     }, []);
+};
+
+export const getSingleBirdBySpeciesCode = (speciesCode) => {
+    return birdsData.find(bird => bird.speciesCode === speciesCode);
+};
+
+export const getBirdsBySpeciesCodes = (speciesCodes) => {
+    return birdsData.filter(bird => speciesCodes && speciesCodes.includes(bird.sppCode));
 };

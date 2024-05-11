@@ -18,7 +18,10 @@ function App(): React.JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic">
         <CreateGameScreen setGameBirds={setGameBirds} />
-        <GameScreen birds={gameBirds} setGameBirds={setGameBirds} />
+        {gameBirds && gameBirds.length > 0 ?
+          <GameScreen birds={gameBirds} setGameBirds={setGameBirds} />
+          : null
+        }
       </ScrollView>
     </SafeAreaView>
   );

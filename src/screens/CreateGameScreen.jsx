@@ -21,6 +21,7 @@ export default CreateGameScreen = ({setGameBirds}) => {
 
   useEffect(() => {
     setSelectedCountyRegion('');
+    setSelectedStateProvince('');
     setAllSubnational2([]);
     if (selectedCountry) {
       getSubnational1Regions(selectedCountry)
@@ -38,7 +39,6 @@ export default CreateGameScreen = ({setGameBirds}) => {
       getSubnational2Regions(selectedStateProvince)
         .then(subNational2Regions => {
           setAllSubnational2(subNational2Regions);
-          console.log('Subnational 2 regions:', subNational2Regions);
         })
         .catch(error => {
           console.log(error);
@@ -46,22 +46,16 @@ export default CreateGameScreen = ({setGameBirds}) => {
     }
   }, [selectedStateProvince]);
 
-  const handleCreateGame = () => {
+  const handleCreateGame = async () => {
     const filtersToApply = {
       birdsNumber,
-      allSubnational1,
       selectedFamily,
       selectedCountry,
       selectedStateProvince,
       selectedCountyRegion,
     };
-    const gameBirds = createGame(filtersToApply);
-    console.log(filtersToApply);
+    const gameBirds = await createGame(filtersToApply);
     setGameBirds(gameBirds);
-    console.log('Game birds!');
-    gameBirds.forEach(bird => {
-      console.log(bird.comName);
-    });
   };
 
   return (

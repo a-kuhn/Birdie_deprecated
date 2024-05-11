@@ -42,3 +42,19 @@ export const getSubnational2Regions = (selectedStateProvince) => {
         console.log('An error occurred:', err);
     });
 };
+
+export const getSpeciesList = (regionCode) => {
+    return new Promise((resolve, reject) => {
+        eBirdApi
+            .get(`/product/spplist/${regionCode}`)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                reject(err);
+            });
+    }).catch(err => {
+        console.log('An error occurred:', err);
+    });
+}
