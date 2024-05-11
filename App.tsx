@@ -16,7 +16,9 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
-        contentInsetAdjustmentBehavior="automatic">
+        contentInsetAdjustmentBehavior="automatic"
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', marginTop: '20%' }}
+        style={styles.scrollView} >
         <CreateGameScreen setGameBirds={setGameBirds} />
         {gameBirds && gameBirds.length > 0 ?
           <GameScreen birds={gameBirds} setGameBirds={setGameBirds} />
@@ -33,6 +35,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.yellow_green,
+  },
+  scrollView: {
+    width: '85%',
   },
 });
 
