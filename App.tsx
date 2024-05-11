@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import colors from '@constants/colors';
 import GameScreen from '@screens/GameScreen';
-import { getAllBirds, getBirdsByFamily } from '@services/BirdsService';
+import CreateGameScreen from '@screens/CreateGameScreen';
+import DevScreen from '@screens/DevScreen';
 
 
 function App(): React.JSX.Element {
-  const allBirds = getBirdsByFamily('accipi1');
+  const [gameBirds, setGameBirds] = useState([]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic">
-        <GameScreen birds={allBirds} />
+        <CreateGameScreen setGameBirds={setGameBirds} />
+        {gameBirds && gameBirds.length > 0 ?
+          <GameScreen birds={gameBirds} setGameBirds={setGameBirds} />
+          : null
+        }
       </ScrollView>
     </SafeAreaView>
   );

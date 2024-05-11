@@ -12,7 +12,8 @@
       "@navigations/*": ["navigations/*"],
       "@services/*": ["services/*"],
       "@types/*": ["types/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@api/*": ["api/*"]
     }
   },
 }
