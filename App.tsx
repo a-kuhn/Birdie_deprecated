@@ -19,7 +19,9 @@ function App(): React.JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', marginTop: '20%' }}
         style={styles.scrollView} >
-        <CreateGameScreen setGameBirds={setGameBirds} />
+        {!gameBirds || gameBirds.length === 0
+          ? <CreateGameScreen setGameBirds={setGameBirds} />
+          : null}
         {gameBirds && gameBirds.length > 0 ?
           <GameScreen birds={gameBirds} setGameBirds={setGameBirds} />
           : null
