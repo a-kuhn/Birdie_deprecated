@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 
-export default FlashCard = ({bird}) => {
+export default FlashCard = ({bird, birdIdx, totalBirdCount}) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
@@ -15,17 +15,27 @@ export default FlashCard = ({bird}) => {
   return (
     <TouchableOpacity onPress={handlePress} style={styles.card}>
       {isFlipped ? (
-        <View style={styles.cardBack}>
-          <Text style={styles.cardTitle}>{bird.famComName}</Text>
-          {bird.imageUrl && bird.imageUrl !== '' ? (
-            <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
-          ) : //todo - add a placeholder image; log error if image not found (use onError prop on Image component)
-          null}
-          <Text style={styles.commonName}>{bird.comName}</Text>
-          <Text style={styles.latinName}>{bird.sciName}</Text>
+        <View>
+          <Text style={styles.cardCount}>
+            card {birdIdx + 1}/{totalBirdCount}
+          </Text>
+          <View style={styles.cardBack}>
+            <Text style={styles.cardTitle}>{bird.famComName}</Text>
+            {bird.imageUrl && bird.imageUrl !== '' ? (
+              <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
+            ) : //todo - add a placeholder image; log error if image not found (use onError prop on Image component)
+            null}
+            <Text style={styles.commonName}>{bird.comName}</Text>
+            <Text style={styles.latinName}>{bird.sciName}</Text>
+          </View>
         </View>
       ) : (
-        <Image source={{uri: bird.imageUrl}} style={styles.cardFront} />
+        <View>
+          <Text style={styles.cardCount}>
+            card {birdIdx + 1}/{totalBirdCount}
+          </Text>
+          <Image source={{uri: bird.imageUrl}} style={styles.cardFront} />
+        </View>
       )}
     </TouchableOpacity>
   );
@@ -38,6 +48,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 20,
     borderWidth: 2,
+  },
+  cardCount: {
+    fontSize: 16,
+    textAlign: 'right',
+    color: 'purple',
+    backgroundColor: '#fff',
+    paddingRight: 20,
+    paddingVertical: 5,
   },
   cardFront: {
     width: '100%',

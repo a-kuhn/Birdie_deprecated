@@ -25,7 +25,11 @@ export default GameScreen = ({birds, setGameBirds}) => {
 
   return (
     <View style={styles.container}>
-      <FlashCard bird={gameBirds[currentBirdIndex]} />
+      <FlashCard
+        bird={gameBirds[currentBirdIndex]}
+        birdIdx={currentBirdIndex}
+        totalBirdCount={gameBirds.length}
+      />
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Button title="Prev Bird" onClick={handlePrevBird} />
         <Button title="Next Bird" onClick={handleNextBird} />
