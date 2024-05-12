@@ -31,7 +31,11 @@ export default GameScreen = ({birds, setGameBirds}) => {
         <Button title="Next Bird" onClick={handleNextBird} />
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Button title="Restart Game" onClick={handleRestartGame} />
+        <Button
+          title="Restart Game"
+          onClick={handleRestartGame}
+          isDisabled={currentBirdIndex === 0}
+        />
         <Button title="End Game" onClick={handleEndGame} />
       </View>
     </View>
