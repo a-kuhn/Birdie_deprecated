@@ -1,73 +1,144 @@
-import React, {useState, useEffect} from 'react';
-import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Animated,
+  TouchableOpacity,
+} from 'react-native';
 
-export default FlashCard = ({bird}) => {
+export default FlashCard = ({bird, birdIdx, totalBirdCount}) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const animatedValue = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    setIsFlipped(false);
-  }, [bird]);
+  const frontInterpolate = animatedValue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['0deg', '180deg'],
+  });
 
-  const handlePress = () => {
+  const backInterpolate = animatedValue.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['180deg', '360deg'],
+  });
+
+  const flipCard = () => {
+    if (isFlipped) {
+      Animated.spring(animatedValue, {
+        toValue: 0,
+        friction: 8,
+        tension: 10,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.spring(animatedValue, {
+        toValue: 180,
+        friction: 8,
+        tension: 10,
+        useNativeDriver: false,
+      }).start();
+    }
     setIsFlipped(!isFlipped);
   };
 
+  const frontAnimatedStyle = {
+    transform: [{rotateY: frontInterpolate}],
+  };
+
+  const backAnimatedStyle = {
+    transform: [{rotateY: backInterpolate}],
+  };
+
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.card}>
-      {isFlipped ? (
-        <View style={styles.cardBack}>
-          <Text style={styles.cardTitle}>{bird.famComName}</Text>
-          {bird.imageUrl && bird.imageUrl !== '' ? (
+    <View style={styles.container}>
+      <TouchableOpacity onPress={flipCard}>
+        <View>
+          <Animated.View
+            style={[
+              styles.card,
+              frontAnimatedStyle,
+              {opacity: isFlipped ? 0 : 1},
+            ]}>
+            <Text style={styles.cardCount}>
+              bird {birdIdx + 1}/{totalBirdCount}
+            </Text>
+            <Image source={{uri: bird.imageUrl}} style={styles.image} />
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.card,
+              styles.cardBack,
+              backAnimatedStyle,
+              {opacity: isFlipped ? 1 : 0},
+            ]}>
+            <Text style={styles.cardCount}>
+              bird {birdIdx + 1}/{totalBirdCount}
+            </Text>
+            <Text style={styles.famComName}>{bird.famComName}</Text>
             <Image source={{uri: bird.imageUrl}} style={styles.smallImage} />
-          ) : //todo - add a placeholder image; log error if image not found (use onError prop on Image component)
-          null}
-          <Text style={styles.commonName}>{bird.comName}</Text>
-          <Text style={styles.latinName}>{bird.sciName}</Text>
+            <Text style={styles.comName}>{bird.comName}</Text>
+            <Text style={styles.latinName}>{bird.sciName}</Text>
+          </Animated.View>
         </View>
-      ) : (
-        <Image source={{uri: bird.imageUrl}} style={styles.cardFront} />
-      )}
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    width: 350,
-    height: 350,
-    overflow: 'hidden',
-    borderRadius: 20,
-    borderWidth: 2,
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  cardFront: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
+  card: {
+    width: 300,
+    height: 400,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
+    backfaceVisibility: 'hidden',
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 5,
   },
   cardBack: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    padding: 10,
+    position: 'absolute',
+    top: 0,
+  },
+  cardCount: {
+    fontSize: 14,
+    color: 'purple',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    borderRadius: 10,
   },
   smallImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-    borderRadius: 20,
+    width: 250,
+    height: 250,
+    borderRadius: 10,
+    marginBottom: 10,
   },
-  cardTitle: {
-    fontSize: 14,
+  famComName: {
+    fontSize: 18,
+    marginBottom: 10,
   },
-  commonName: {
-    fontSize: 20,
+  comName: {
+    fontSize: 22,
     fontWeight: 'bold',
+    marginTop: 10,
   },
   latinName: {
-    fontSize: 16,
+    fontSize: 20,
     fontStyle: 'italic',
   },
 });
